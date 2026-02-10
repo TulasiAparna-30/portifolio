@@ -2,71 +2,458 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>A.Tulasi Aparna| Portfolio</title>
-    <link rel="stylesheet" href="index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.Tulasi Aparna | Portfolio</title>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --bg-dark: #0f172a;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --text-white: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --primary: #38bdf8; /* Neon Cyan */
+            --accent: #c084fc;  /* Neon Purple */
+            --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-white);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* --- Navigation --- */
+        header {
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 0.8rem 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Styling the Logo Image (Nav) */
+        .logo-container {
+            position: relative;
+            width: 60px;
+            height: 60px;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            object-fit: cover;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* --- Main Layout --- */
+        main {
+            flex: 1;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 5rem;
+        }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr; /* Text left, Image right */
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text h1 span {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+        }
+
+        .hero-text h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .cta-buttons .btn {
+            display: inline-block;
+            padding: 0.8rem 2.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-buttons .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(192, 132, 252, 0.4);
+        }
+
+        /* --- Profile Image with Glitter & Exact Dotted Circle --- */
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* The Profile Image */
+        .profile-img {
+            width: 280px; /* Fixed size */
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+            z-index: 2; /* Above glitter */
+            border: 4px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        /* 1. Glitter Background Effect */
+        .glitter-bg {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            border-radius: 50%;
+            z-index: 1; /* Behind image */
+            /* CSS Pattern for Glitter */
+            background: 
+                radial-gradient(white, rgba(255,255,255,.3) 2px, transparent 3px),
+                radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 2px),
+                radial-gradient(white, rgba(255,255,255,.15) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            animation: glitter-move 20s linear infinite;
+        }
+
+        /* 2. Exact Dotted Circle (Frame) */
+        /* Slightly larger than image to frame it perfectly without extending too far */
+        .dotted-circle {
+            position: absolute;
+            width: 320px; /* Image is 280px, this is +40px frame */
+            height: 320px;
+            border-radius: 50%;
+            border: 2px dashed var(--primary);
+            z-index: 3;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+            animation: spin 15s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes glitter-move {
+            from { background-position: 0 0, 40px 60px, 130px 270px; }
+            to { background-position: 550px 550px, 390px 410px, 680px 820px; }
+        }
+
+        /* --- Highlights/Courses Section (Nice Colors & Effects) --- */
+        .highlights-section {
+            max-width: 1200px;
+            margin: 0 auto 4rem auto;
+            width: 100%;
+        }
+
+        .highlights-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--text-white);
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .highlight-card {
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            /* Glassmorphism base */
+            backdrop-filter: blur(5px);
+        }
+
+        /* Shine Overlay Effect */
+        .highlight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .highlight-card:hover::before {
+            left: 100%;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .highlight-card i {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: -webkit-linear-gradient(#fff, #eee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .highlight-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .highlight-card p {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Card 1: Blue Gradient */
+        .card-1 {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(56, 189, 248, 0.05) 100%);
+            border-top: 4px solid var(--primary);
+        }
+        .card-1:hover { box-shadow: 0 15px 30px rgba(56, 189, 248, 0.3); }
+
+        /* Card 2: Purple Gradient */
+        .card-2 {
+            background: linear-gradient(135deg, rgba(192, 132, 252, 0.2) 0%, rgba(192, 132, 252, 0.05) 100%);
+            border-top: 4px solid var(--accent);
+        }
+        .card-2:hover { box-shadow: 0 15px 30px rgba(192, 132, 252, 0.3); }
+
+        /* Card 3: Pink/Orange Gradient */
+        .card-3 {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(249, 115, 22, 0.05) 100%);
+            border-top: 4px solid #f472b6;
+        }
+        .card-3:hover { box-shadow: 0 15px 30px rgba(236, 72, 153, 0.3); }
+
+        /* --- Footer --- */
+        footer {
+            background-color: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .footer-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero-text h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* Simplified mobile view */
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">
-            <a href="index.html">
-                <img src= "pick2.png" alt="image">
-            </a>
-        </div>
-            <ul>
+            <!-- Logo Container with Image -->
+            <div class="logo-container">
+                <a href="index.html">
+                    <!-- Keeping your local path, ensuring object-fit works -->
+                    <img src="C:\Users\syamm\OneDrive\Pictures\Camera Roll\Screenshot 2026-01-15 185308.png" alt="Logo">
+                </a>
+            </div>
+            
+            <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="skills.html">skills</a></li>
-                <li><a href="education.html">Education</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="Education.html">Education</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <section class="main">
-        <div class="content">
-            <h1>Hi, I'm <span>Tulasi Aparna</span></h1>
-            <h2></h2>
-            <p></p>
-            <div class="cta-buttons">
-               
-                <a href="ALLADA TULASI APARNA resum.pdf" class="btn primary">Resume</a>
+        <!-- Hero Section with Glitter & Dotted Circle -->
+        <section class="hero-section">
+            <div class="hero-text">
+                <h1>Hi, I'm <span>Tulasi Aparna</span></h1>
+                <h2>Web Developer & Designer</h2>
+                <p>I create modern, responsive websites with beautiful aesthetics and clean code. Let's build something amazing together.</p>
+                <div class="cta-buttons">
+                    <!-- Link to your local PDF -->
+                    <a href="C:\Users\syamm\Downloads\Allada Tulasi Aparna Resume pdf.pdf" class="btn" download>
+                        <i class="fas fa-download"></i> Download Resume
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="image">
-            <img src= "pick1.png" alt="Tulasi" height="250" width="250" >
-        </div>
-    </section>
-    <section class="highlights">
-        <div class="highlight-card">
-            <i class="fab fa-code"></i>
-            <h3>Clean Code</h3>
-            <p>Writing maintainable, efficient code with best practices</p>
-        </div>
-        <div class="highlight-card">
-            <i class="fab fa-mobile"></i>
-            <h3>Responsive Design</h3>
-            <p>Creating seamless experiences across all devices</p>
-        </div>
-    <div class="highlight-card">
-            <i class="fas fa-paint-brush"></i>
-            <h3>Modern UI</h3>
-            <p>Designing intuitive and beautiful user Interface</p>
-        </div>
-    </section>
+
+            <div class="image-container">
+                <!-- Glitter Background Effect -->
+                <div class="glitter-bg"></div>
+                <!-- Rotating Dotted Circle (Exact Frame) -->
+                <div class="dotted-circle"></div>
+                <!-- Main Profile Image -->
+                <img src="C:\Users\syamm\OneDrive\Pictures\Screenshots\pick1.png" alt="Tulasi" class="profile-img">
+            </div>
+        </section>
+
+        <!-- Highlights / Courses Section with Nice Colors -->
+        <section class="highlights-section">
+            <h2 class="highlights-title">What I Do</h2>
+            <div class="highlights-grid">
+                <div class="highlight-card card-1">
+                    <i class="fab fa-code"></i>
+                    <h3>Clean Code</h3>
+                    <p>Writing maintainable, efficient code with best practices</p>
+                </div>
+                <div class="highlight-card card-2">
+                    <i class="fab fa-mobile"></i>
+                    <h3>Responsive Design</h3>
+                    <p>Creating seamless experiences across all devices</p>
+                </div>
+                <div class="highlight-card card-3">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Modern UI</h3>
+                    <p>Designing intuitive and beautiful user Interfaces</p>
+                </div>
+            </div>
+        </section>
     </main>
+
     <footer>
-    <div class="footer-content">
-        <div class="social-links">
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-           <a href="mailto:example@gmail.com"><i class="fas fa-envelope"></i></a>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:example@gmail.com"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p>&copy; 2025 Tulasi. All rights reserved.</p>
         </div>
-        <P>&copy; 2025 Tulasi.All rights reserved.</P>
-    </div>
-</footer>
+    </footer>
 </body>
 </html>
-
-
