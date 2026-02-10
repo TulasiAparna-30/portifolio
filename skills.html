@@ -2,18 +2,319 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Skills | Portfolio</title>
-    <link rel="stylesheet" href="skills.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills | Professional Portfolio</title>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --primary: #00d2ff;       /* Bright Blue */
+            --secondary: #3a7bd5;     /* Deep Blue */
+            --accent: #ff9f43;        /* Orange Accent for specific actions */
+            --text-light: #f1f2f6;
+            --text-dim: #ced6e0;
+            --card-bg: rgba(255, 255, 255, 0.05); /* Glass effect */
+            --card-border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* Attractive Gradient Background */
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Navigation Bar --- */
+        header {
+            background-color: rgba(15, 32, 39, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--card-border);
+            padding: 1rem 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary);
+        }
+
+        /* Underline animation */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* --- Main Layout --- */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header h1 span {
+            color: var(--primary);
+            background: -webkit-linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        /* --- Skills Grid --- */
+        .skills-grid {
+            display: grid;
+            /* Responsive Grid: auto-fit handles different screen sizes automatically */
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        /* Icon styling */
+        .skill-card i {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--text-dim), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover i {
+            transform: scale(1.1);
+            -webkit-text-fill-color: var(--primary);
+        }
+
+        .skill-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .skill-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- Business Form Section --- */
+        .business-inquiry {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 3rem;
+            backdrop-filter: blur(4px);
+            box-shadow: var(--shadow);
+        }
+
+        .business-inquiry h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--text-light);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-light);
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-submit {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--card-border);
+            margin-top: auto;
+        }
+
+        /* --- Toast Notification --- */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: var(--secondary);
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1001;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .section-header h1 { font-size: 2rem; }
+            .nav-links { display: none; /* In a real app, add a hamburger menu here */ }
+            .form-grid { grid-template-columns: 1fr; }
+            .business-inquiry { padding: 1.5rem; }
+        }
+    </style>
 </head>
 <body>
 
     <!-- Navigation Bar -->
     <header>
         <nav>
-            <div class="photo">My Portfolio</div>
-            <ul>
-                <li><a href="home.html">Home</a></li>
+            <div class="logo">My <span>Portfolio</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="skills.html" class="active">Skills</a></li>
                 <li><a href="education.html">Education</a></li>
@@ -22,44 +323,117 @@
         </nav>
     </header>
 
-    <!-- Skills Section -->
+    <!-- Main Content -->
     <main>
-        <section class="skills">
+        <!-- Section Header -->
+        <div class="section-header">
             <h1>My <span>Skills</span></h1>
-            <p class="subtitle">Technologies & tools I work with</p>
+            <p class="subtitle">Technologies & tools I work with to build digital solutions</p>
+        </div>
 
-            <div class="skills-container">
-                <div class="skill-box">
-                    <i class="fab fa-html5"></i>
-                    <h3>HTML</h3>
-                    <p>Structuring web pages with semantic and accessible markup.</p>
-                </div>
-
-                <div class="skill-box">
-                    <i class="fab fa-css3-alt"></i>
-                    <h3>CSS</h3>
-                    <p>Designing responsive layouts with Flexbox and Grid.</p>
-                </div>
-
-                <div class="skill-box">
-                    <i class="fab fa-js"></i>
-                    <h3>JavaScript</h3>
-                    <p>Adding interactivity and dynamic behavior to websites.</p>
-                </div>
-
-                <div class="skill-box">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>Web Design</h3>
-                    <p>Creating clean, modern, and user-friendly designs.</p>
-                </div>
+        <!-- Skills Grid -->
+        <section class="skills-grid">
+            
+            <div class="skill-card">
+                <i class="fab fa-html5"></i>
+                <h3>HTML5</h3>
+                <p>Expert in structuring web pages with semantic, accessible, and SEO-friendly markup.</p>
             </div>
+
+            <div class="skill-card">
+                <i class="fab fa-css3-alt"></i>
+                <h3>Advanced CSS</h3>
+                <p>Proficient in Flexbox, Grid, Animations, and Responsive Design principles.</p>
+            </div>
+
+            <div class="skill-card">
+                <i class="fab fa-js"></i>
+                <h3>JavaScript</h3>
+                <p>Creating dynamic user interfaces, DOM manipulation, and handling asynchronous logic.</p>
+            </div>
+
+            <div class="skill-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>Web Design</h3>
+                <p>Designing clean, modern UI/UX with a focus on user experience and aesthetics.</p>
+            </div>
+            
         </section>
+
+        <!-- Business Format Form Section -->
+        <section class="business-inquiry">
+            <h2>Start a Project With Me</h2>
+            <form id="hireForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" class="form-control" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Business Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="john@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="budget">Project Budget</label>
+                        <select id="budget" class="form-control">
+                            <option>Select Range</option>
+                            <option>$500 - $1000</option>
+                            <option>$1000 - $2500</option>
+                            <option>$2500+</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="timeline">Timeline</label>
+                        <select id="timeline" class="form-control">
+                            <option>Urgent (< 1 week)</option>
+                            <option>1 - 2 Weeks</option>
+                            <option>1 Month+</option>
+                        </select>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="details">Project Details</label>
+                        <textarea id="details" class="form-control" rows="4" placeholder="Describe your requirements..." required></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Send Inquiry <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </section>
+
     </main>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2025 Tulasi. All rights reserved.</p>
     </footer>
 
-</body>
+    <!-- Toast Notification -->
+    <div id="toast"><i class="fas fa-check-circle"></i> Inquiry Sent Successfully!</div>
 
+    <script>
+        // Handle form submission simulation
+        document.getElementById('hireForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = this.querySelector('.btn-submit');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = 'Sending...';
+            btn.style.opacity = '0.7';
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.opacity = '1';
+                this.reset();
+                showToast();
+            }, 1500);
+        });
+
+        function showToast() {
+            const toast = document.getElementById("toast");
+            toast.className = "show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+    </script>
+
+</body>
 </html>
