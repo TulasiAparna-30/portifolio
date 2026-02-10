@@ -2,18 +2,304 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About | Portfolio</title>
-    <link rel="stylesheet" href="about.css"> <!-- Link to CSS for About page -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me | Portfolio</title>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS Variables & Reset --- */
+        :root {
+            --bg-dark: #0f172a;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --text-white: #f8fafc;
+            --text-muted: #cbd5e1;
+            --primary: #38bdf8; /* Neon Cyan */
+            --accent: #c084fc;  /* Neon Purple */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-white);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden; /* Prevent scrollbars from animations */
+        }
+
+        /* --- Navigation --- */
+        header {
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* --- Main Layout --- */
+        main {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Grid Layout for About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr; /* Text slightly wider */
+            gap: 4rem;
+            align-items: center;
+        }
+
+        /* --- Content Card (Nice Colors & Glass Effect) --- */
+        .content-card {
+            /* Nice Gradient Background for the "Course/Content" area */
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1) 0%, rgba(192, 132, 252, 0.1) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.2); /* Neon Glow */
+        }
+
+        /* Shine Overlay for Text Card */
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            transition: left 0.6s;
+        }
+
+        .content-card:hover::before {
+            left: 150%;
+        }
+
+        .content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .content h1 span {
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+
+        .content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .content p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* --- Profile Image Area (Glitter & Dotted Effects) --- */
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 1. Glitter Background Effect */
+        .glitter-bg {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            border-radius: 50%;
+            z-index: 0;
+            /* The Glitter Animation */
+            background: radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+                        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+                        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 3px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            background-position: 0 0, 40px 60px, 130px 270px;
+            animation: glitter-move 20s linear infinite;
+        }
+
+        /* 2. Rotating Dotted Circle */
+        .dotted-circle {
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            border: 3px dashed var(--primary);
+            z-index: 2;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+            animation: spin 15s linear infinite;
+        }
+
+        /* 3. Main Image */
+        .profile-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+            border: 5px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        /* --- Animations --- */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes glitter-move {
+            from { background-position: 0 0, 40px 60px, 130px 270px; }
+            to { background-position: 550px 550px, 390px 410px, 680px 820px; }
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            background-color: rgba(15, 23, 42, 0.8);
+            margin-top: auto;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .image-wrapper {
+                height: 300px;
+                order: -1; /* Image on top */
+            }
+
+            .dotted-circle {
+                width: 280px;
+                height: 280px;
+            }
+
+            .profile-img {
+                width: 220px;
+                height: 220px;
+            }
+
+            .content h1 { font-size: 2.5rem; }
+            .content h2 { font-size: 1.5rem; }
+        }
+    </style>
 </head>
 <body>
+
     <!-- Navigation Bar -->
     <header>
         <nav>
-            <div class="photo">My Portfolio</div>
-            <ul>
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="about.html" >About</a></li>
+            <div class="logo">
+                <i class="fas fa-user-circle"></i> My Portfolio
+            </div>
+            <ul class="nav-links">
+                <li><a href="home.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
                 <li><a href="skills.html">Skills</a></li>
                 <li><a href="education.html">Education</a></li>
                 <li><a href="contact.html">Contact</a></li>
@@ -21,26 +307,46 @@
         </nav>
     </header>
 
-    <!-- About Me Section -->
+    <!-- Main Content -->
     <main>
-        <section class="about-me">
-            <div class="content">
-                <h1>About <span>Me</span></h1>
-                <h2>Web Developer & Designer</h2>
-                <p>Hello! I'm <strong>A.Tulasi Aparna</strong>, a passionate web developer and designer. I enjoy building modern and responsive websites that provide a great user experience. My goal is to turn ideas into functional, visually appealing projects while constantly learning new technologies.</p>
+        <div class="about-grid">
+            <!-- Left: Content Card with Nice Gradient Background -->
+            <div class="content-card">
+                <div class="content">
+                    <h1>About <span>Me</span></h1>
+                    <h2>Web Developer & Designer</h2>
+                    <p>Hello! I'm <strong style="color:white">A. Tulasi Aparna</strong>, a passionate web developer and designer. I enjoy building modern and responsive websites that provide a great user experience. My goal is to turn ideas into functional, visually appealing projects while constantly learning new technologies.</p>
+                    <a href="contact.html" style="text-decoration: none;">
+                        <button style="padding: 10px 25px; border-radius: 30px; border:none; background: var(--primary); color: #0f172a; font-weight:bold; cursor:pointer; transition: 0.3s; box-shadow: 0 0 15px var(--primary);">
+                            Contact Me
+                        </button>
+                    </a>
+                </div>
             </div>
-            <div class="image">
-                <img src="pick4.png" alt="Tualsi Aparna">
+
+            <!-- Right: Profile Image with Glitter & Dotted Effects -->
+            <div class="image-wrapper">
+                <!-- Glitter Background Layer -->
+                <div class="glitter-bg"></div>
+                
+                <!-- Rotating Dotted Circle -->
+                <div class="dotted-circle"></div>
+                
+                <!-- Profile Image -->
+                <!-- 
+                    REPLACE src BELOW WITH YOUR LOCAL FILE: 
+                    src="A:\Screenshot 2026-02-03 105131.png"
+                    (Currently set to a placeholder for display)
+                -->
+                <img src="C:\Users\syamm\OneDrive\Pictures\Camera Roll\pick4.png" alt="Tulasi Aparna" class="profile-img">
             </div>
-        </section>
+        </div>
     </main>
-    <footer>     
-         <div>
-        <P>&copy; 2025 Tulasi Aparna.All rights reserved.</P>
-    </div></footer>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Tulasi Aparna. All rights reserved.</p>
+    </footer>
+
 </body>
-
 </html>
-
-
-
